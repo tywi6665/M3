@@ -6,11 +6,12 @@
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 5px;
-    background: grey;
+    background: linear-gradient(45deg, rgba(118,48,201,1) 0%, rgba(148,65,161,1) 25%, rgba(206,116,198,1) 50%, rgba(252,167,146,1) 75%, rgba(255,191,141,1) 100%);
 
     .container {
         background: white;
         padding: 15px;
+        border-radius: 10px;
     }
 
     .section-1 { grid-area: 1 / 1 / 2 / 2; }
@@ -19,3 +20,9 @@
     .section-4 { grid-area: 4 / 1 / 5 / 2; }
     .section-5 { grid-area: 5 / 1 / 6 / 2; }
 }
+
+// @media only screen and (max-width: 700px) {
+//     .master-container {
+
+//     }
+// }
