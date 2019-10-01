@@ -1,5 +1,6 @@
 .app {
     background: linear-gradient(45deg, rgba(118,48,201,1) 0%, rgba(148,65,161,1) 25%, rgba(206,116,198,1) 50%, rgba(252,167,146,1) 75%, rgba(255,191,141,1) 100%);
+    color: #d4d4dc;
     padding: 15px;
 
     .master-container {
@@ -15,7 +16,7 @@
         box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 
         .container {
-            background: white;
+            background: #33363b ;
             padding: 15px;
             border-radius: 10px;
         }
@@ -25,6 +26,10 @@
         .section-3 { grid-area: 3 / 1 / 4 / 2; }
         .section-4 { grid-area: 4 / 1 / 5 / 2; }
         .section-5 { grid-area: 5 / 1 / 6 / 2; }
+
+        .banner {
+            background: #313340;
+        }
     }
 
 }
