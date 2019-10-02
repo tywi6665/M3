@@ -2,19 +2,20 @@ $silver: #d4d4dc;
 $background-color: rgb(20,20,50);
 $dark-slate: rgb(36,39,70);
 $light-slate: rgb(46,48,75);
-$border-radius: 10px;
+$border-top-radius: 10px;
+$border-bottom-radius: 5px;
 
 
 .app {
     background: linear-gradient(45deg, rgba(118,48,201,1) 0%, rgba(148,65,161,1) 25%, rgba(206,116,198,1) 50%, rgba(252,167,146,1) 75%, rgba(255,191,141,1) 100%);
     color: #d4d4dc;
-    padding: 15px 25px;
+    padding: 10px 10px;
 
     .master-container {
         background: $background-color;
         margin: 15px;
         padding: 65px 15px 15px 15px;
-        border-radius: $border-radius;
+        border-radius: $border-top-radius;
         position: relative;
         display: grid;
         grid-template-columns: 1fr;
@@ -27,17 +28,40 @@ $border-radius: 10px;
             background: $light-slate;
             width: 100%;
             height: 50px;
-            border-top-left-radius: $border-radius;
-            border-top-right-radius: $border-radius;
+            display: flex;
+            align-items: center;
+            border-top-left-radius: $border-top-radius;
+            border-top-right-radius: $border-top-radius;
             position: absolute;
             top: 0;
             left: 0;
+
+            .logo {
+                background: $silver;
+                height: 25px;
+                width: 25px;
+                margin-left: 15px;
+            }
+
+            ul {
+                list-style: none;
+
+                li {
+                    display: inline;
+                    margin: 0 8px;
+                    font-size: 0.7em;
+                }
+            }
         }
 
         .container {
             background: $dark-slate;
             padding: 60px 15px 15px 15px;
-            border-radius: $border-radius;
+            border-top-left-radius: $border-top-radius;
+            border-top-right-radius: $border-top-radius;
+            border-bottom-left-radius: $border-bottom-radius;
+            border-bottom-right-radius: $border-bottom-radius;
+            position: absolute;
             position: relative;
         }
 
@@ -57,11 +81,12 @@ $border-radius: 10px;
             display: flex;
             justify-content: center;
             flex-direction: column;
-            border-top-left-radius: $border-radius;
-            border-top-right-radius: $border-radius;
+            border-top-left-radius: $border-top-radius;
+            border-top-right-radius: $border-top-radius;
 
             .header {
                 padding-left: 25px;
+                font-size: 0.9em;
                 margin: 0;
             }
 
@@ -78,6 +103,7 @@ $border-radius: 10px;
 @media only screen and (min-width: 700px) {
 
     .app {
+        padding: 15px 25px;
 
         .master-container {
             display: grid;
@@ -100,6 +126,7 @@ $border-radius: 10px;
 @media only screen and (min-width: 1000px) {
 
     .app {
+        padding: 25px 50px;
 
         .master-container {
             display: grid;
