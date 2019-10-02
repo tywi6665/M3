@@ -1,4 +1,4 @@
-$silver: #d4d4dc;
+$dark-gray: darkgray;
 $background-color: rgb(20,20,50);
 $dark-slate: rgb(36,39,70);
 $light-slate: rgb(46,48,75);
@@ -8,7 +8,7 @@ $border-bottom-radius: 5px;
 
 .app {
     background: linear-gradient(45deg, rgba(118,48,201,1) 0%, rgba(148,65,161,1) 25%, rgba(206,116,198,1) 50%, rgba(252,167,146,1) 75%, rgba(255,191,141,1) 100%);
-    color: #d4d4dc;
+    color: $dark-gray;
     padding: 10px 10px;
 
     .master-container {
@@ -37,7 +37,7 @@ $border-bottom-radius: 5px;
             left: 0;
 
             .logo {
-                background: $silver;
+                background: white;
                 height: 25px;
                 width: 25px;
                 margin-left: 15px;
@@ -88,6 +88,10 @@ $border-bottom-radius: 5px;
                 padding-left: 25px;
                 font-size: 0.9em;
                 margin: 0;
+            }
+
+            span {
+                color: white;
             }
 
             .sub-header {
