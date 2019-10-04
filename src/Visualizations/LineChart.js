@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { SpendingDataContext } from "../useContext/SpendingDataContext";
 import * as d3 from "d3";
-import data from "./csv.csv";
 
 const height = 100,
     width = 100,
@@ -8,13 +8,9 @@ const height = 100,
 
 const LineChart = () => {
 
-    const [spending, setSpending] = useState(null);
+    const [spending, setSpending] = useContext(SpendingDataContext);
 
-    d3.csv(data).then(function (data) {
-        console.log(data)
-    }).catch(function (error) {
-        console.log(error)
-    })
+    console.log(spending)
 
     return (
         <svg height={`${height}%`} width={`${width}%`}></svg>
