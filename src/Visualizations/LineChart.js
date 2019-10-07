@@ -42,6 +42,7 @@ const LineChart = () => {
             .range([220 - margin.bottom, margin.top]);
 
         const lineGenerator = d3.line()
+            .curve(d3.curveCardinal)
             .x(d => xScale(d.date))
             .y(d => yScale(d.amount));
 
@@ -53,11 +54,11 @@ const LineChart = () => {
         <svg height={`${height}%`} width={`${width}%`}>
             <defs>
                 <linearGradient id="spending-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="rgba(255,191,141,1)" />
-                    <stop offset="25%" stop-color="rgba(252,167,146,1)" />
-                    <stop offset="50%" stop-color="rgba(206,116,198,1)" />
-                    <stop offset="75%" stop-color="rgba(148,65,161,1)" />
-                    <stop offset="100%" stop-color="rgba(118,48,201,1)" />
+                    <stop offset="0%" stopColor="rgba(255,191,141,1)" />
+                    <stop offset="25%" stopColor="rgba(252,167,146,1)" />
+                    <stop offset="50%" stopColor="rgba(206,116,198,1)" />
+                    <stop offset="75%" stopColor="rgba(148,65,161,1)" />
+                    <stop offset="100%" stopColor="rgba(118,48,201,1)" />
                 </linearGradient>
             </defs>
             <path className="line" d={parsedData} fill="none" />
