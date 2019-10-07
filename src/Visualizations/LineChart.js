@@ -10,8 +10,6 @@ const LineChart = () => {
 
     const [spending, setSpending] = useContext(SpendingDataContext);
 
-    console.log(spending)
-
     return (
         <svg height={`${height}%`} width={`${width}%`}></svg>
     );
