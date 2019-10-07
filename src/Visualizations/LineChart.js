@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { SpendingDataContext } from "../useContext/SpendingDataContext";
 import * as d3 from "d3";
 
@@ -8,7 +8,26 @@ const height = 100,
 
 const LineChart = () => {
 
-    const [spending, setSpending] = useContext(SpendingDataContext);
+    const [rawSpending, setRawSpending] = useContext(SpendingDataContext);
+    const [spending, setSpending] = useState(null);
+    console.log(rawSpending);
+
+    useEffect(() => {
+        if (rawSpending === null) {
+            return;
+        }
+        let array = []
+        rawSpending.forEach(transaction => {
+            return array.push({
+                Amount: transaction.Amount,
+                Date: transaction.Transaction_Date
+            })
+        });
+        setSpending(array.reverse())
+    }, [rawSpending])
+
+
+    console.log(spending)
 
     return (
         <svg height={`${height}%`} width={`${width}%`}>
