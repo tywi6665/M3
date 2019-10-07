@@ -10,6 +10,8 @@ const LineChart = () => {
 
     const [rawSpending, setRawSpending] = useContext(SpendingDataContext);
     const [spending, setSpending] = useState(null);
+    const [parsedData, setParsedData] = useState(null);
+    const parseDate = d3.timeParse("%m/%d/%Y");
 
     useEffect(() => {
         if (rawSpending === null) {
@@ -17,20 +19,35 @@ const LineChart = () => {
         }
         let array = []
         rawSpending.forEach(transaction => {
+            transaction.Transaction_Date = parseDate(transaction.Transaction_Date)
             return array.push({
-                Amount: transaction.Amount,
-                Date: transaction.Transaction_Date
+                amount: parseInt(transaction.Amount),
+                date: transaction.Transaction_Date
             })
         });
-        setSpending(array.reverse())
-    }, [rawSpending])
+        setSpending(array.reverse());
+    }, [rawSpending]);
 
-    const xScale = d3.scaleTime().range([0, width]);
-    const yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
-    const lineGenerator = d3.line();
+    useEffect(() => {
+        if (spending === null) {
+            return;
+        }
+        console.log(spending)
+        const xScale = d3.scaleTime()
+            .domain(d3.extent(spending, (d) => { return d.date; }))
+            .range([0, width]);
 
+        const yScale = d3.scaleLinear()
+            .domain([0, d3.max(spending, (d) => { return d.amount; })])
+            .range([height - margin.bottom, margin.top]);
 
-    console.log(spending)
+        const lineGenerator = d3.line()
+            .x(d => xScale(d.date))
+            .y(d => yScale(d.amount));
+
+        const line = lineGenerator(spending);
+        setParsedData(line);
+    }, [spending]);
 
     return (
         <svg height={`${height}%`} width={`${width}%`}>
@@ -41,7 +58,7 @@ const LineChart = () => {
                 <stop offset="75%" color="rgba(148,65,161,1)" />
                 <stop offset="100%" color="rgba(118,48,201,1)" />
             </linearGradient>
-            <path className="line" d={spending} fill="none" />
+            <path className="line" d={parsedData} fill="none" />
         </svg>
     );
 }
