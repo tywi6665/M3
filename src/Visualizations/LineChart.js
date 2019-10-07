@@ -10,7 +10,6 @@ const LineChart = () => {
 
     const [rawSpending, setRawSpending] = useContext(SpendingDataContext);
     const [spending, setSpending] = useState(null);
-    console.log(rawSpending);
 
     useEffect(() => {
         if (rawSpending === null) {
@@ -25,6 +24,10 @@ const LineChart = () => {
         });
         setSpending(array.reverse())
     }, [rawSpending])
+
+    const xScale = d3.scaleTime().range([0, width]);
+    const yScale = d3.scaleLinear().range([height - margin.bottom, margin.top]);
+    const lineGenerator = d3.line();
 
 
     console.log(spending)
