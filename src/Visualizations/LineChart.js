@@ -51,12 +51,43 @@ const LineChart = ({ width }) => {
             .x(d => xScale(d.date))
             .y(d => yScale(d.amount));
 
-        const line = lineGenerator(spending);
-        setParsedData(line);
-
-        const pathLines = document.getElementsByClassName("line");
-
+        const spendingLine = lineGenerator(spending);
+        setParsedData(spendingLine);
     }, [width, spending]);
+
+    const lines = document.getElementsByClassName("line");
+    d3.select("rect")
+        .on("mouseout", handleMouseout)
+        .on("mouseover", handleMouseover)
+        .on("mousemove", handleMousemove)
+
+    function handleMouseout() {
+        d3.select(".mouse-line")
+            .style("opacity", "0");
+        d3.selectAll(".mouse-per-line circle")
+            .style("opacity", "0");
+        d3.selectAll(".mouse-per-line text")
+            .style("opacity", "0");
+    };
+
+    function handleMouseover() {
+        d3.select(".mouse-line")
+            .style("opacity", "1");
+        d3.selectAll(".mouse-per-line circle")
+            .style("opacity", "1");
+        d3.selectAll(".mouse-per-line text")
+            .style("opacity", "1");
+    };
+
+    function handleMousemove(d) {
+        let mouse = d3.mouse(this);
+        d3.select(".mouse-line")
+            .attr("d", function () {
+                let d = "M" + mouse[0] + "," + svgHeight;
+                d += " " + mouse[0] + "," + 0;
+                return d;
+            });
+    };
 
     return (
         <svg height={`${svgHeight}%`} width={svgWidth}>
@@ -78,11 +109,12 @@ const LineChart = ({ width }) => {
             </defs>
             <path className="line" d={parsedData} fill="none" />
             <g className="mouse-over">
-                <path className="mouse-over-line"></path>
+                <path className="mouse-line"></path>
                 <g className="mouse-per-line">
                     <circle r="7"></circle>
                     <text transform="translate(10,3)"></text>
                 </g>
+                <rect height={`${svgHeight}%`} width={svgWidth} fill="none" pointerEvents="all"></rect>
             </g>
         </svg>
     );
