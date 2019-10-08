@@ -20,7 +20,7 @@ const LineChart = () => {
         let array = []
         rawSpending.forEach(transaction => {
             transaction.Transaction_Date = parseDate(transaction.Transaction_Date)
-            if (transaction.Amount > 0) {
+            if (parseInt(transaction.Amount) > 0 || parseInt(transaction.Amount) === 0) {
                 return
             } else {
                 return array.push({
@@ -30,7 +30,7 @@ const LineChart = () => {
             }
 
         });
-        setSpending(array.reverse());
+        setSpending(array.sort((a, b) => (a.date > b.date) ? 1 : -1));
     }, [rawSpending]);
 
     useEffect(() => {
