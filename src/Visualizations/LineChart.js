@@ -2,11 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { SpendingDataContext } from "../useContext/SpendingDataContext";
 import * as d3 from "d3";
 
-const height = 100,
-    width = 100,
-    margin = { top: 20, right: 0, bottom: 20, left: 20 }
-
-const LineChart = () => {
+const LineChart = ({ width }) => {
 
     const [rawSpending, setRawSpending] = useContext(SpendingDataContext);
     const [spending, setSpending] = useState(null);
@@ -33,6 +29,10 @@ const LineChart = () => {
         setSpending(array.sort((a, b) => (a.date > b.date) ? 1 : -1));
     }, [rawSpending]);
 
+    const svgHeight = 100,
+        svgWidth = width,
+        margin = { top: 20, right: 0, bottom: 20, left: 20 };
+
     useEffect(() => {
         if (spending === null) {
             return;
@@ -40,7 +40,7 @@ const LineChart = () => {
         console.log(spending)
         const xScale = d3.scaleTime()
             .domain(d3.extent(spending, (d) => { return d.date; }))
-            .range([0, 800]);
+            .range([0, svgWidth - margin.left]);
 
         const yScale = d3.scaleLinear()
             .domain([0, d3.max(spending, (d) => { return d.amount; })])
@@ -53,10 +53,10 @@ const LineChart = () => {
 
         const line = lineGenerator(spending);
         setParsedData(line);
-    }, [spending]);
+    }, [width, spending]);
 
     return (
-        <svg height={`${height}%`} width={`${width}%`}>
+        <svg height={`${svgHeight}%`} width={svgWidth}>
             <defs>
                 <linearGradient id="spending-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="rgba(255,191,141,1)" />
