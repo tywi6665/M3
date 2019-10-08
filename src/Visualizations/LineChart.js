@@ -53,6 +53,9 @@ const LineChart = ({ width }) => {
 
         const line = lineGenerator(spending);
         setParsedData(line);
+
+        const pathLines = document.getElementsByClassName("line");
+        console.log(pathLines);
     }, [width, spending]);
 
     return (
@@ -74,6 +77,9 @@ const LineChart = ({ width }) => {
                 </linearGradient>
             </defs>
             <path className="line" d={parsedData} fill="none" />
+            <g className="mouse-over">
+                <path className="mouse-over-line"></path>
+            </g>
         </svg>
     );
 }

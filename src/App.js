@@ -31,8 +31,8 @@ function App() {
           </Container>
           <Container
             number="2"
-            header={["The Chart", "Display"]}
-            subHeader="The Chart Section"
+            header={["Overall Spending", "Display"]}
+            subHeader="Your Spending Chart"
           >
             <LineChart />
           </Container>
