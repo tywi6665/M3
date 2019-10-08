@@ -31,7 +31,7 @@ const LineChart = ({ width }) => {
 
     const svgHeight = 100,
         svgWidth = width,
-        margin = { top: 20, right: 0, bottom: 20, left: 20 };
+        margin = { top: 20, right: 15, bottom: 20, left: 15 };
 
     useEffect(() => {
         if (spending === null) {
@@ -40,7 +40,7 @@ const LineChart = ({ width }) => {
         console.log(spending)
         const xScale = d3.scaleTime()
             .domain(d3.extent(spending, (d) => { return d.date; }))
-            .range([0, svgWidth - margin.left]);
+            .range([0, svgWidth]);
 
         const yScale = d3.scaleLinear()
             .domain([0, d3.max(spending, (d) => { return d.amount; })])
@@ -58,6 +58,13 @@ const LineChart = ({ width }) => {
     return (
         <svg height={`${svgHeight}%`} width={svgWidth}>
             <defs>
+                <filter id="glow">
+                    <feGaussianBlur className="blur" stdDeviation="4.5" result="coloredBlur"></feGaussianBlur>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"></feMergeNode>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                    </feMerge>
+                </filter>
                 <linearGradient id="spending-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="rgba(255,191,141,1)" />
                     <stop offset="25%" stopColor="rgba(252,167,146,1)" />

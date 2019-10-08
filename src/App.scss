@@ -56,13 +56,17 @@ $border-bottom-radius: 5px;
 
         .container {
             background: $dark-slate;
-            padding: 60px 15px 15px 15px;
+            padding: 60px 0px 15px 0px;
             border-top-left-radius: $border-top-radius;
             border-top-right-radius: $border-top-radius;
             border-bottom-left-radius: $border-bottom-radius;
             border-bottom-right-radius: $border-bottom-radius;
             position: absolute;
             position: relative;
+
+            p {
+                margin: 15px;
+            }
         }
 
         .section-1 { grid-area: 1 / 1 / 2 / 2; }
@@ -72,7 +76,8 @@ $border-bottom-radius: 5px;
             .line {
                 fill: none;
                 stroke: url(#spending-gradient);
-                stroke-width: 1px;
+                stroke-width: 2px;
+                filter: url(#glow);
             }
         }
         .section-3 { grid-area: 3 / 1 / 4 / 2; }
