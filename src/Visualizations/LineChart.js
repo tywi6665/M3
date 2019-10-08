@@ -20,10 +20,15 @@ const LineChart = () => {
         let array = []
         rawSpending.forEach(transaction => {
             transaction.Transaction_Date = parseDate(transaction.Transaction_Date)
-            return array.push({
-                amount: parseInt(transaction.Amount),
-                date: transaction.Transaction_Date
-            })
+            if (transaction.Amount > 0) {
+                return
+            } else {
+                return array.push({
+                    amount: parseInt(Math.abs(transaction.Amount)),
+                    date: transaction.Transaction_Date
+                })
+            }
+
         });
         setSpending(array.reverse());
     }, [rawSpending]);
