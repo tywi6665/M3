@@ -53,41 +53,71 @@ const LineChart = ({ width }) => {
 
         const spendingLine = lineGenerator(spending);
         setParsedData(spendingLine);
+
+        const lines = document.getElementsByClassName("line");
+        d3.select("rect")
+            .on("mouseout", handleMouseout)
+            .on("mouseover", handleMouseover)
+            .on("mousemove", handleMousemove)
+
+        function handleMouseout() {
+            d3.select(".mouse-line")
+                .style("opacity", "0");
+            d3.selectAll(".mouse-per-line circle")
+                .style("opacity", "0");
+            d3.selectAll(".mouse-per-line text")
+                .style("opacity", "0");
+        };
+
+        function handleMouseover() {
+            d3.select(".mouse-line")
+                .style("opacity", "1");
+            d3.selectAll(".mouse-per-line circle")
+                .style("opacity", "1");
+            d3.selectAll(".mouse-per-line text")
+                .style("opacity", "1");
+        };
+
+        function handleMousemove(d) {
+            let mouse = d3.mouse(this);
+            d3.select(".mouse-line")
+                .attr("d", function () {
+                    let d = "M" + mouse[0] + "," + svgHeight;
+                    d += " " + mouse[0] + "," + 0;
+                    return d;
+                });
+            d3.select(".mouse-per-line")
+                .attr("transform", function (d, i) {
+                    // console.log(mouse[0])
+                    // const x = d3.scaleTime().domain(d3.extent(spending, (d) => { return d.date; }))
+                    //     .range([0, svgWidth])
+                    // let xDate = x.invert(mouse[0]),
+                    //     bisect = d3.bisector(function (d) { return d.date; }).right,
+                    //     idx = bisect(d.values, xDate);
+                    // console.log(xDate, bisect, idx)
+
+                    let beginning = 0,
+                        end = lines[i].getTotalLength(),
+                        target = null;
+
+                    while (true) {
+                        let target = Math.floor((beginning + end) / 2);
+                        var pos = lines[i].getPointAtLength(target);
+                        if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+                            break;
+                        }
+                        if (pos.x > mouse[0]) end = target;
+                        else if (pos.x < mouse[0]) beginning = target;
+                        else break; //position found
+                    }
+
+                    // d3.select(this).select('text')
+                    //     .text(y.invert(pos.y).toFixed(2));
+
+                    return "translate(" + mouse[0] + "," + pos.y + ")";
+                });
+        };
     }, [width, spending]);
-
-    const lines = document.getElementsByClassName("line");
-    d3.select("rect")
-        .on("mouseout", handleMouseout)
-        .on("mouseover", handleMouseover)
-        .on("mousemove", handleMousemove)
-
-    function handleMouseout() {
-        d3.select(".mouse-line")
-            .style("opacity", "0");
-        d3.selectAll(".mouse-per-line circle")
-            .style("opacity", "0");
-        d3.selectAll(".mouse-per-line text")
-            .style("opacity", "0");
-    };
-
-    function handleMouseover() {
-        d3.select(".mouse-line")
-            .style("opacity", "1");
-        d3.selectAll(".mouse-per-line circle")
-            .style("opacity", "1");
-        d3.selectAll(".mouse-per-line text")
-            .style("opacity", "1");
-    };
-
-    function handleMousemove(d) {
-        let mouse = d3.mouse(this);
-        d3.select(".mouse-line")
-            .attr("d", function () {
-                let d = "M" + mouse[0] + "," + svgHeight;
-                d += " " + mouse[0] + "," + 0;
-                return d;
-            });
-    };
 
     return (
         <svg height={`${svgHeight}%`} width={svgWidth}>
