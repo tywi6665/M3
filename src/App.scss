@@ -79,6 +79,23 @@ $border-bottom-radius: 5px;
                 stroke-width: 2px;
                 filter: url(#glow);
             }
+
+            .mouse-over {
+
+                .mouse-over-line {
+                    stroke: white;
+                    stroke-width: 1px;
+                    opacity: 0;
+                }
+
+                circle {
+                    stroke: url(#spending-gradient);
+                    fill: none;
+                    stroke-width: 1px;
+                    // opacity: 0;
+                }
+            }
+            
         }
         .section-3 { grid-area: 3 / 1 / 4 / 2; }
         .section-4 { grid-area: 4 / 1 / 5 / 2; }

@@ -37,7 +37,7 @@ const LineChart = ({ width }) => {
         if (spending === null) {
             return;
         }
-        console.log(spending)
+
         const xScale = d3.scaleTime()
             .domain(d3.extent(spending, (d) => { return d.date; }))
             .range([0, svgWidth]);
@@ -55,7 +55,7 @@ const LineChart = ({ width }) => {
         setParsedData(line);
 
         const pathLines = document.getElementsByClassName("line");
-        console.log(pathLines);
+
     }, [width, spending]);
 
     return (
@@ -79,6 +79,10 @@ const LineChart = ({ width }) => {
             <path className="line" d={parsedData} fill="none" />
             <g className="mouse-over">
                 <path className="mouse-over-line"></path>
+                <g className="mouse-per-line">
+                    <circle r="7"></circle>
+                    <text transform="translate(10,3)"></text>
+                </g>
             </g>
         </svg>
     );
