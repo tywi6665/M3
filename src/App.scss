@@ -81,18 +81,18 @@ $border-bottom-radius: 5px;
             }
 
             .mouse-over {
+                display: none;
 
-                .mouse-over-line {
+                .x .y {
                     stroke: white;
                     stroke-width: 1px;
-                    opacity: 0;
+                    fill: none;
                 }
 
                 circle {
                     stroke: url(#spending-gradient);
                     fill: none;
                     stroke-width: 1px;
-                    opacity: 0;
                 }
             }
             

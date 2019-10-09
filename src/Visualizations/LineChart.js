@@ -54,68 +54,82 @@ const LineChart = ({ width }) => {
         const spendingLine = lineGenerator(spending);
         setParsedData(spendingLine);
 
-        const lines = document.getElementsByClassName("line");
+        const mouseOver = d3.select(".mouse-over");
+
         d3.select("rect")
-            .on("mouseout", handleMouseout)
-            .on("mouseover", handleMouseover)
+            .on("mouseout", () => mouseOver.attr("style", "opacity: 0"))
+            .on("mouseover", () => mouseOver.attr("style", "opacity: 1"))
             .on("mousemove", handleMousemove)
 
-        function handleMouseout() {
-            d3.select(".mouse-line")
-                .style("opacity", "0");
-            d3.selectAll(".mouse-per-line circle")
-                .style("opacity", "0");
-            d3.selectAll(".mouse-per-line text")
-                .style("opacity", "0");
-        };
+        // function handleMouseout() {
+        //     d3.select(".mouse-line")
+        //         .style("opacity", "0");
+        //     d3.selectAll(".mouse-over circle")
+        //         .style("opacity", "0");
+        //     d3.selectAll(".mouse-over text")
+        //         .style("opacity", "0");
+        // };
 
-        function handleMouseover() {
-            d3.select(".mouse-line")
-                .style("opacity", "1");
-            d3.selectAll(".mouse-per-line circle")
-                .style("opacity", "1");
-            d3.selectAll(".mouse-per-line text")
-                .style("opacity", "1");
-        };
+        // function handleMouseover() {
+        //     d3.select(".mouse-over")
+        //         .style("opacity", "1");
+        //     d3.selectAll(".mouse-over circle")
+        //         .style("opacity", "1");
+        //     d3.selectAll(".mouse-over text")
+        //         .style("opacity", "1");
+        // };
 
-        function handleMousemove(d) {
+        function handleMousemove() {
             let mouse = d3.mouse(this);
-            d3.select(".mouse-line")
-                .attr("d", function () {
-                    let d = "M" + mouse[0] + "," + svgHeight;
-                    d += " " + mouse[0] + "," + 0;
-                    return d;
-                });
-            d3.select(".mouse-per-line")
-                .attr("transform", function (d, i) {
-                    // console.log(mouse[0])
-                    // const x = d3.scaleTime().domain(d3.extent(spending, (d) => { return d.date; }))
-                    //     .range([0, svgWidth])
-                    // let xDate = x.invert(mouse[0]),
-                    //     bisect = d3.bisector(function (d) { return d.date; }).right,
-                    //     idx = bisect(d.values, xDate);
-                    // console.log(xDate, bisect, idx)
+            // d3.select(".mouse-line")
+            //     .attr("d", function () {
+            //         let path = "M" + mouse[0] + "," + svgHeight;
+            //         path += " " + mouse[0] + "," + 0;
+            //         return path;
+            //     });
 
-                    let beginning = 0,
-                        end = lines[i].getTotalLength(),
-                        target = null;
+            const x0 = xScale.invert(mouse[0]);
+            const bisectDate = d3.bisector(d => d.date).right;
+            const i = bisectDate(spending, x0, 1);
+            const d0 = spending[i - 1];
+            const d1 = spending[i];
+            const d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 
-                    while (true) {
-                        let target = Math.floor((beginning + end) / 2);
-                        var pos = lines[i].getPointAtLength(target);
-                        if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-                            break;
-                        }
-                        if (pos.x > mouse[0]) end = target;
-                        else if (pos.x < mouse[0]) beginning = target;
-                        else break; //position found
-                    }
+            mouseOver
+                .attr("transform", `translate(${xScale(d.date)}, ${yScale(d.amount)})`);
 
-                    // d3.select(this).select('text')
-                    //     .text(y.invert(pos.y).toFixed(2));
+            mouseOver.select('line.x')
+                .attr('x1', 0)
+                .attr('x2', -xScale(d.date))
+                .attr('y1', 0)
+                .attr('y2', 0);
 
-                    return "translate(" + mouse[0] + "," + pos.y + ")";
-                });
+            mouseOver.select('line.y')
+                .attr('x1', 0)
+                .attr('x2', 0)
+                .attr('y1', 0)
+                .attr('y2', svgHeight - yScale(d.amount));
+
+            // let beginning = 0,
+            //     end = lines[i].getTotalLength(),
+            //     target = null;
+
+            // while (true) {
+            //     let target = Math.floor((beginning + end) / 2);
+            //     var pos = lines[i].getPointAtLength(target);
+            //     if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+            //         break;
+            //     }
+            //     if (pos.x > mouse[0]) end = target;
+            //     else if (pos.x < mouse[0]) beginning = target;
+            //     else break; //position found
+            // }
+
+            // d3.select(this).select('text')
+            //     .text(y.invert(pos.y).toFixed(2));
+
+            // return "translate(" + mouse[0] + "," + pos.y + ")";
+
         };
     }, [width, spending]);
 
@@ -139,13 +153,12 @@ const LineChart = ({ width }) => {
             </defs>
             <path className="line" d={parsedData} fill="none" />
             <g className="mouse-over">
-                <path className="mouse-line"></path>
-                <g className="mouse-per-line">
-                    <circle r="7"></circle>
-                    <text transform="translate(10,3)"></text>
-                </g>
-                <rect height={`${svgHeight}%`} width={svgWidth} fill="none" pointerEvents="all"></rect>
+                <circle r="7"></circle>
+                <line className="x"></line>
+                <line className="y"></line>
+                <text transform="translate(10,3)"></text>
             </g>
+            <rect height={`${svgHeight}%`} width={svgWidth} fill="none" pointerEvents="all"></rect>
         </svg>
     );
 }
