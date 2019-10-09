@@ -81,9 +81,9 @@ $border-bottom-radius: 5px;
             }
 
             .mouse-over {
-                display: none;
+                fill: none;
 
-                .x .y {
+                line {
                     stroke: white;
                     stroke-width: 1px;
                     fill: none;

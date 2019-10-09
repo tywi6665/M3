@@ -89,7 +89,7 @@ const LineChart = ({ width }) => {
             //     });
 
             const x0 = xScale.invert(mouse[0]);
-            const bisectDate = d3.bisector(d => d.date).right;
+            const bisectDate = d3.bisector(d => d.date).left;
             const i = bisectDate(spending, x0, 1);
             const d0 = spending[i - 1];
             const d1 = spending[i];
@@ -108,7 +108,7 @@ const LineChart = ({ width }) => {
                 .attr('x1', 0)
                 .attr('x2', 0)
                 .attr('y1', 0)
-                .attr('y2', svgHeight - yScale(d.amount));
+                .attr('y2', svgHeight);
 
             // let beginning = 0,
             //     end = lines[i].getTotalLength(),
