@@ -4,6 +4,7 @@ $dark-slate: rgb(36,39,70);
 $light-slate: rgb(46,48,75);
 $border-top-radius: 10px;
 $border-bottom-radius: 5px;
+$font-size: 0.9em;
 
 
 .app {
@@ -84,15 +85,20 @@ $border-bottom-radius: 5px;
                 fill: none;
 
                 line {
-                    stroke: white;
-                    stroke-width: 1px;
+                    stroke: $light-slate;
+                    stroke-width: 2px;
                     fill: none;
                 }
 
                 circle {
-                    stroke: url(#spending-gradient);
+                    stroke: $background-color;
                     fill: none;
                     stroke-width: 1px;
+                    opacity: 0;
+                }
+
+                text {
+                    fill: white;
                 }
             }
             
@@ -116,7 +122,7 @@ $border-bottom-radius: 5px;
 
             .header {
                 padding-left: 25px;
-                font-size: 0.9em;
+                font-size: $font-size;
                 margin: 0;
             }
 
