@@ -10,7 +10,8 @@ const Container = ({ number, header, subHeader, children }) => {
                 <p className="header">{header[0]}<span> {header[1]}</span></p>
                 <p className="sub-header">{subHeader}</p>
             </div>
-            {React.cloneElement(children, { width: containerWidth })}
+            {/* {React.cloneElement(children, { width: containerWidth })} */}
+            {React.Children.map(children, (child => React.cloneElement(child, { width: containerWidth })))}
         </div>
     );
 };

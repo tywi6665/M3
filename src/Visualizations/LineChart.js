@@ -103,6 +103,7 @@ const LineChart = ({ width }) => {
             //     .text(formatCurrency(d.amount));
         };
     }, [width, spending]);
+
     return (
         <>
             <svg height={`${svgHeight}%`} width={svgWidth}>
