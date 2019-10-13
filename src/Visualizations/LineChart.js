@@ -7,6 +7,8 @@ const LineChart = ({ width }) => {
     const [rawSpending, setRawSpending] = useContext(SpendingDataContext);
     const [spending, setSpending] = useState(null);
     const [parsedData, setParsedData] = useState(null);
+    const [hoverAmount, setHoverAmount] = useState("--");
+    const [hoverDate, setHoverDate] = useState("--");
     const parseDate = d3.timeParse("%m/%d/%Y");
 
     useEffect(() => {
@@ -57,7 +59,8 @@ const LineChart = ({ width }) => {
         const mouseOver = d3.select(".mouse-over");
         const circle = d3.select(".mouse-over circle");
         const formatValue = d3.format(",.2f");
-        const formatCurrency = d => `$${formatValue(d)}`;
+        const formatDate = d3.timeFormat("%m/%d/%Y");
+        // const formatCurrency = d => `$${formatValue(d)}`;
 
         d3.select("rect")
             .on("mouseout", () => mouseOver.attr("style", "opacity: 0"))
@@ -78,6 +81,9 @@ const LineChart = ({ width }) => {
 
             circle.attr("style", "opacity: 1");
 
+            setHoverAmount(`${d.amount}`);
+            setHoverDate(formatDate(d.date));
+
             // mouseOver.select('line.x')
             //     .attr('x1', 0)
             //     .attr('x2', -xScale(d.date))
@@ -91,40 +97,45 @@ const LineChart = ({ width }) => {
                 .attr('y2', 60);
 
 
-            mouseOver.select('text')
-                .attr('x', 9)
-                .attr('dy', '.35em')
-                .text(formatCurrency(d.amount));
+            // mouseOver.select('text')
+            //     .attr('x', 9)
+            //     .attr('dy', '.35em')
+            //     .text(formatCurrency(d.amount));
         };
     }, [width, spending]);
-
     return (
-        <svg height={`${svgHeight}%`} width={svgWidth}>
-            <defs>
-                <filter id="glow">
-                    <feGaussianBlur className="blur" stdDeviation="4.5" result="coloredBlur"></feGaussianBlur>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"></feMergeNode>
-                        <feMergeNode in="SourceGraphic"></feMergeNode>
-                    </feMerge>
-                </filter>
-                <linearGradient id="spending-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(255,191,141,1)" />
-                    <stop offset="25%" stopColor="rgba(252,167,146,1)" />
-                    <stop offset="50%" stopColor="rgba(206,116,198,1)" />
-                    <stop offset="75%" stopColor="rgba(148,65,161,1)" />
-                    <stop offset="100%" stopColor="rgba(118,48,201,1)" />
-                </linearGradient>
-            </defs>
-            <path className="line" d={parsedData} fill="none" />
-            <g className="mouse-over">
-                <circle r="7"></circle>
-                {/* <line className="x"></line> */}
-                <line className="y"></line>
-                <text></text>
-            </g>
-            <rect height={`${svgHeight}%`} width={svgWidth} fill="none" pointerEvents="all"></rect>
-        </svg>
+        <>
+            <svg height={`${svgHeight}%`} width={svgWidth}>
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur className="blur" stdDeviation="4.5" result="coloredBlur"></feGaussianBlur>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+                    <linearGradient id="spending-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(255,191,141,1)" />
+                        <stop offset="25%" stopColor="rgba(252,167,146,1)" />
+                        <stop offset="50%" stopColor="rgba(206,116,198,1)" />
+                        <stop offset="75%" stopColor="rgba(148,65,161,1)" />
+                        <stop offset="100%" stopColor="rgba(118,48,201,1)" />
+                    </linearGradient>
+                </defs>
+                <path className="line" d={parsedData} fill="none" />
+                <g className="mouse-over">
+                    <circle r="7"></circle>
+                    {/* <line className="x"></line> */}
+                    <line className="y"></line>
+                    {/* <text></text> */}
+                </g>
+                <rect height={`${svgHeight}%`} width={svgWidth} fill="none" pointerEvents="all"></rect>
+            </svg>
+            <div className="hover-data">
+                <p>Transaction Amount: $<span>{`${hoverAmount}`}</span></p>
+                <p>Transaction Date: <span>{`${hoverDate}`}</span></p>
+            </div>
+        </>
     );
 }
 
