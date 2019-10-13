@@ -19,7 +19,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let formatTime = d3.timeFormat("%B %d, %Y");
+    let formatTime = d3.timeFormat("%A %B %d, %Y");
     setCurrentDate(formatTime(new Date));
   }, [])
 
@@ -35,8 +35,10 @@ function App() {
             header={["Your Account", "Overview"]}
             subHeader="Your Current Balances"
           >
-            <p>Hello <span>{`Tyler`}</span></p>
-            <p>Today is <span>{currentDate}</span></p>
+            <div className="text-div">
+              <p className="name-text">Hello, <span>{`Tyler`}</span></p>
+              <p className="date-text">Today is <span>{currentDate}</span></p>
+            </div>
           </Container>
           <Container
             number="2"
