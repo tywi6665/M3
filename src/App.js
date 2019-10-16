@@ -6,6 +6,7 @@ import './App.scss';
 import Navbar from './Components/Navbar';
 import LineChart from './Visualizations/LineChart';
 import * as d3 from "d3";
+import AccountContainer from './Components/AccountContainer';
 
 function App() {
 
@@ -39,6 +40,18 @@ function App() {
               <p className="name-text">Hello, <span>{`Tyler`}</span></p>
               <p className="date-text">Today is <span>{currentDate}</span></p>
             </div>
+            <AccountContainer
+              account="Checking"
+              balance="3,203"
+            ></AccountContainer>
+            <AccountContainer
+              account="Savings"
+              balance="1,000"
+            ></AccountContainer>
+            <AccountContainer
+              account="Credit Cards"
+              balance="1,500"
+            ></AccountContainer>
           </Container>
           <Container
             number="2"

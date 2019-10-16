@@ -64,21 +64,19 @@ $font-size: 0.9em;
             border-bottom-right-radius: $border-bottom-radius;
             position: absolute;
             position: relative;
-
-            p {
-                margin: 15px;
-            }
         }
 
         .section-1 {
             grid-area: 1 / 1 / 2 / 2;
+            padding-right: 25px;
+            padding-left: 25px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
 
-                .text-div {
+            .text-div {
 
                 .name-text {
-                    padding-left: 25px;
                     font-size: $font-size;
                     margin: 0;
                 }
@@ -88,10 +86,22 @@ $font-size: 0.9em;
                 }
 
                 .date-text {
-                    padding-left: 25px;
                     font-size: 0.6em;
                     margin: 5px 0 0 0;
                 } 
+            }
+
+            .account-container {
+
+                .account-name {
+                    font-size: 0.6em;
+                    margin: 0;
+                }
+
+                .account-balance {
+                    color: white;
+                    margin: 0;
+                }
             }
 
         }
@@ -141,9 +151,18 @@ $font-size: 0.9em;
                 }
             }
         }
-        .section-3 { grid-area: 3 / 1 / 4 / 2; }
-        .section-4 { grid-area: 4 / 1 / 5 / 2; }
-        .section-5 { grid-area: 5 / 1 / 6 / 2; }
+        .section-3 { grid-area: 3 / 1 / 4 / 2;
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+        .section-4 { grid-area: 4 / 1 / 5 / 2;
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+        .section-5 { grid-area: 5 / 1 / 6 / 2; 
+            padding-right: 25px;
+            padding-left: 25px;
+        }
 
         .banner {
             background: $light-slate;
