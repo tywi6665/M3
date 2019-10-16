@@ -12,7 +12,7 @@ function App() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [currentDate, setCurrentDate] = useState("--");
-  const [accountData, setAccountData] = useState([{ account: "Checking", balance: "3,203" }, { account: "Savings", balance: "1,000" }, { account: "Credit Cards", balance: "1,500" }])
+  const [accountData, setAccountData] = useState([{ account: "Checking", balance: "3,203", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }, { account: "Savings", balance: "1,000", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }, { account: "Credit Cards", balance: "1,500", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }])
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -41,11 +41,13 @@ function App() {
               <p className="name-text">Hello, <span>{`Tyler`}</span></p>
               <p className="date-text">Today is <span>{currentDate}</span></p>
             </div>
-            {accountData.map(data => {
+            {accountData.map((data, i) => {
               return (
                 <AccountContainer
                   account={data.account}
                   balance={data.balance}
+                  accountHistory={data.accountHistory}
+                  key={i}
                 />
               )
             })}
