@@ -110,6 +110,13 @@ $font-size: 0.9em;
                         margin-right: 5px;
                     }
                 }
+
+                .line {
+                    fill: none;
+                    stroke: url(#spending-gradient);
+                    stroke-width: 2px;
+                    filter: url(#glow);
+                }
             }
 
         }

@@ -4,6 +4,7 @@ import * as d3 from "d3";
 const AccountChart = ({ accountHistory }) => {
 
     const [parsedData, setParsedData] = useState(null);
+    const parseDate = d3.timeParse("%m/%d/%Y");
 
     const height = 60,
         width = 100,
@@ -16,21 +17,24 @@ const AccountChart = ({ accountHistory }) => {
             return;
         }
         console.log(accountHistory)
-        // const xScale = d3.scaleTime()
-        //     .domain(d3.extent(accountHistory, (d) => { return d.date; }))
-        //     .range([0, width]);
+        const xScale = d3.scaleTime()
+            .domain(d3.extent(accountHistory, (d) => {
+                d.date = parseDate(d.date);
+                return d.date;
+            }))
+            .range([margin, width - margin]);
 
-        // const yScale = d3.scaleLinear()
-        //     .domain([0, d3.max(accountHistory, (d) => { return d.amount; })])
-        //     .range([height - margin, margin]);
+        const yScale = d3.scaleLinear()
+            .domain([0, d3.max(accountHistory, (d) => { return d.amount; })])
+            .range([height - margin, margin]);
 
-        // const lineGenerator = d3.line()
-        //     .curve(d3.curveCardinal)
-        //     .x(d => xScale(d.date))
-        //     .y(d => yScale(d.amount));
+        const lineGenerator = d3.line()
+            .curve(d3.curveCardinal)
+            .x(d => xScale(d.date))
+            .y(d => yScale(d.amount));
 
-        // const accountLine = lineGenerator(accountHistory);
-        // setParsedData(accountLine);
+        const accountLine = lineGenerator(accountHistory);
+        setParsedData(accountLine);
     }, [accountHistory])
 
 
@@ -39,7 +43,7 @@ const AccountChart = ({ accountHistory }) => {
             <svg height={height} width={width}>
                 <defs>
                     <filter id="glow">
-                        <feGaussianBlur className="blur" stdDeviation="4.5" result="coloredBlur"></feGaussianBlur>
+                        <feGaussianBlur className="blur" stdDeviation="2.5" result="coloredBlur"></feGaussianBlur>
                         <feMerge>
                             <feMergeNode in="coloredBlur"></feMergeNode>
                             <feMergeNode in="SourceGraphic"></feMergeNode>
