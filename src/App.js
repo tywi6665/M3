@@ -4,7 +4,7 @@ import MasterContainer from "./Components/MasterContainer";
 import Container from "./Components/Container";
 import './App.scss';
 import Navbar from './Components/Navbar';
-import LineChart from './Visualizations/LineChart';
+import SpendingChart from './Visualizations/SpendingChart';
 import * as d3 from "d3";
 import AccountContainer from './Components/AccountContainer';
 
@@ -12,6 +12,7 @@ function App() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [currentDate, setCurrentDate] = useState("--");
+  const [accountData, setAccountData] = useState([{ account: "Checking", balance: "3,203" }, { account: "Savings", balance: "1,000" }, { account: "Credit Cards", balance: "1,500" }])
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -40,25 +41,21 @@ function App() {
               <p className="name-text">Hello, <span>{`Tyler`}</span></p>
               <p className="date-text">Today is <span>{currentDate}</span></p>
             </div>
-            <AccountContainer
-              account="Checking"
-              balance="3,203"
-            ></AccountContainer>
-            <AccountContainer
-              account="Savings"
-              balance="1,000"
-            ></AccountContainer>
-            <AccountContainer
-              account="Credit Cards"
-              balance="1,500"
-            ></AccountContainer>
+            {accountData.map(data => {
+              return (
+                <AccountContainer
+                  account={data.account}
+                  balance={data.balance}
+                />
+              )
+            })}
           </Container>
           <Container
             number="2"
             header={["Overall Spending", "Display"]}
             subHeader="Your Spending Chart"
           >
-            <LineChart />
+            <SpendingChart />
           </Container>
           <Container
             number="3"
