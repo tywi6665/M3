@@ -16,7 +16,7 @@ const AccountChart = ({ accountHistory }) => {
         if (accountHistory === null) {
             return;
         }
-        console.log(accountHistory)
+        // console.log(accountHistory)
         const xScale = d3.scaleTime()
             .domain(d3.extent(accountHistory, (d) => {
                 d.date = parseDate(d.date);

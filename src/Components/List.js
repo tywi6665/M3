@@ -12,7 +12,7 @@ const List = () => {
             return;
         }
 
-        let recent = rawSpending.slice(0, 10);
+        let recent = rawSpending.reverse().slice(0, 10);
         setRecentTransactions(recent);
     }, [rawSpending])
 
