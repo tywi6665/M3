@@ -12,7 +12,7 @@ function App() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [currentDate, setCurrentDate] = useState("--");
-  const [accountData, setAccountData] = useState([{ account: "Checking", balance: "3,203", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }, { account: "Savings", balance: "1,000", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }, { account: "Credit Cards", balance: "1,500", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }])
+  const [accountData, setAccountData] = useState([{ account: "Checking", balance: "3,203", accountHistory: [{ amount: 3279.36, date: "6/24/2019" }, { amount: 2797.23, date: "7/23/2019" }, { amount: 2412.44, date: "8/22/2019" }, { amount: 3385.76, date: "9/24/2019" }] }, { account: "Savings", balance: "1,000", accountHistory: [{ amount: 25, date: "6/29/2019" }, { amount: 100, date: "6/30/2019" }, { amount: 75, date: "7/1/2019" }] }, { account: "Credit Cards", balance: "1,500", accountHistory: [{ amount: 50, date: "6/29/2019" }, { amount: 25, date: "6/30/2019" }, { amount: 100, date: "7/1/2019" }] }])
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);

@@ -7,7 +7,7 @@ const AccountChart = ({ accountHistory }) => {
     const parseDate = d3.timeParse("%m/%d/%Y");
 
     const height = 60,
-        width = 100,
+        width = 120,
         margin = 5;
 
 
@@ -25,7 +25,7 @@ const AccountChart = ({ accountHistory }) => {
             .range([margin, width - margin]);
 
         const yScale = d3.scaleLinear()
-            .domain([0, d3.max(accountHistory, (d) => { return d.amount; })])
+            .domain([d3.min(accountHistory, (d) => { return d.amount; }), d3.max(accountHistory, (d) => { return d.amount; })])
             .range([height - margin, margin]);
 
         const lineGenerator = d3.line()
