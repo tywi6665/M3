@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar';
 import SpendingChart from './Visualizations/SpendingChart';
 import * as d3 from "d3";
 import AccountContainer from './Components/AccountContainer';
+import List from "./Components/List";
 
 function App() {
 
@@ -68,10 +69,10 @@ function App() {
           </Container>
           <Container
             number="4"
-            header={["The OtherOther", "Section"]}
-            subHeader="The OtherOther Section"
+            header={["Recent Transactions", "Section"]}
+            subHeader="Your Transaction History"
           >
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <List />
           </Container>
           <Container
             number="5"
