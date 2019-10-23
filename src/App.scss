@@ -185,15 +185,41 @@ $font-size: 0.9em;
 
                     .item-name {
                         display: flex;
+                        align-items: center;
 
                         div {
                             margin-right: 15px;
-                            height: 20px;
-                            width: 20px;
+                            height: 10px;
+                            width: 10px;
                             border-radius: 50%;
+                            position: relative;
                             background: radial-gradient(rgba(252,167,146,1), rgba(255,191,141,1));
                             box-shadow: 0 0 5px 5px rgba(252,167,146,1);
                             animation: pulse 4s infinite;
+
+                            &:before {
+                                content: "";
+                                position: absolute;
+                                top: -2px;
+                                left: -2px;
+                                height: 12px;
+                                width: 12px;
+                                border-radius: 50%;
+                                border: 1px solid rgba(255,191,141,1);
+                                opacity: 0.5;
+                            }
+
+                            &:after {
+                                content: "";
+                                position: absolute;
+                                top: -3.8px;
+                                left: -3.8px;
+                                height: 16px;
+                                width: 16px;
+                                border-radius: 50%;
+                                border: 1px solid rgba(255,191,141,1);
+                                opacity: 0.25;
+                            }
                 
                             @keyframes pulse {
                                 0% {
@@ -205,6 +231,35 @@ $font-size: 0.9em;
                                 100% {
                                       box-shadow: 0 0 0 0 rgba(254, 204, 96, 0);
                                 }
+                            }
+                        }
+                    }
+
+                    .item-amount {
+                        display: flex;
+                        align-items: center;
+
+                        // .up {
+
+                        // }
+
+                        .down {
+                            margin: 5px 5px 0 0;
+                            width: 0; 
+                            height: 0; 
+                            position: relative;
+                            border-left: 6px solid transparent;
+                            border-right: 6px solid transparent;  
+                            border-top: 6px solid rgba(255,191,141,1);
+
+                            &:after {
+                                content: "";
+                                top: -5px;
+                                left: -4px;
+                                position: absolute;
+                                border-left: 4px solid transparent;
+                                border-right: 4px solid transparent;  
+                                border-top: 4px solid $dark-slate;
                             }
                         }
                     }
