@@ -20,7 +20,7 @@ $font-size: 0.9em;
         position: relative;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-rows: repeat(5, auto);
         grid-column-gap: 0px;
         grid-row-gap: 15px;            
         box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
@@ -92,6 +92,7 @@ $font-size: 0.9em;
             }
 
             .account-container {
+                height: 120px;
                 display: flex;
                 align-items: center;
 
@@ -259,7 +260,7 @@ $font-size: 0.9em;
         .master-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: 0.5fr repeat(3, 1fr);
+            grid-template-rows: 0.5fr 1.4fr repeat(2, auto);
             grid-column-gap: 15px;
             grid-row-gap: 15px; 
 
@@ -282,7 +283,7 @@ $font-size: 0.9em;
         .master-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);;
-            grid-template-rows: 0.5fr repeat(2, 1fr);
+            grid-template-rows: auto auto auto;
             grid-column-gap: 15px;
             grid-row-gap: 15px; 
 

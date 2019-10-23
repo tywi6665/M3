@@ -31,7 +31,7 @@ const LineChart = ({ width }) => {
         setSpending(array.sort((a, b) => (a.date > b.date) ? 1 : -1));
     }, [rawSpending]);
 
-    const svgHeight = 100,
+    const svgHeight = 230,
         svgWidth = width,
         margin = { top: 20, right: 15, bottom: 20, left: 15 };
 
@@ -106,7 +106,7 @@ const LineChart = ({ width }) => {
 
     return (
         <>
-            <svg height={`${svgHeight}%`} width={svgWidth}>
+            <svg height={svgHeight} width={svgWidth}>
                 <defs>
                     <filter id="glow">
                         <feGaussianBlur className="blur" stdDeviation="4.5" result="coloredBlur"></feGaussianBlur>
@@ -130,7 +130,7 @@ const LineChart = ({ width }) => {
                     <line className="y"></line>
                     {/* <text></text> */}
                 </g>
-                <rect height={`${svgHeight}%`} width={svgWidth} fill="none" pointerEvents="all"></rect>
+                <rect height={svgHeight} width={svgWidth} fill="none" pointerEvents="all"></rect>
             </svg>
             <div className="hover-data">
                 <p>Transaction Amount: $<span>{`${hoverAmount}`}</span></p>
