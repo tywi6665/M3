@@ -39,7 +39,7 @@ const List = ({ section }) => {
     return (
         <div className="list">
             {section === "recent" ? [
-                !recentTransactions ? (
+                (!recentTransactions ? (
                     <p>Loading Your Transaction History</p>
                 ) : (
                         recentTransactions.map((recentTransaction, i) => {
@@ -52,21 +52,22 @@ const List = ({ section }) => {
                                 />
                             )
                         })
-                    )] : [
-                    !transactionCategories ? (
+                    ))] : [
+                    (!transactionCategories ? (
                         <p>Loading Your Transaction History</p>
                     ) : (
-                            transactionCategories.map((transactionCategory, j) => {
+                            Object.keys(transactionCategories[0]).forEach(key => {
+                                console.log(key, transactionCategories[0][key])
                                 return (
                                     <ListItem
                                         list="category"
-                                        transactionCategory={transactionCategory.Category}
-                                        categoryAmount={transactionCategory.Amount}
-                                        key={j}
+                                        transactionCategory={key}
+                                        categoryAmount={transactionCategories[0][key]}
+                                        key={key}
                                     />
                                 )
                             })
-                        )]
+                        ))]
             }
 
         </div>
