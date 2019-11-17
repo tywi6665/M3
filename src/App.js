@@ -74,6 +74,7 @@ function App() {
           >
             <List
               section="recent"
+              key="recent"
             />
           </Container>
           <Container
@@ -83,6 +84,7 @@ function App() {
           >
             <List
               section="category"
+              key="category"
             />
           </Container>
         </MasterContainer>

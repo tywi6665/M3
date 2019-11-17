@@ -29,7 +29,7 @@ const List = ({ section }) => {
                 });
             });
             let result = categoryArr.reduce((acc, o) => (acc[o.category] = (acc[o.category] || 0) + 1, acc), {});
-            categories.push(result);
+            categories.push(Object.entries(result));
         };
         categoryFrequency(rawSpending);
         setTransactionCategories(categories);
@@ -45,7 +45,7 @@ const List = ({ section }) => {
                         recentTransactions.map((recentTransaction, i) => {
                             return (
                                 <ListItem
-                                    list="recent"
+                                    list={section}
                                     transactionName={recentTransaction.Description}
                                     transactionAmount={recentTransaction.Amount}
                                     key={i}
@@ -56,14 +56,14 @@ const List = ({ section }) => {
                     (!transactionCategories ? (
                         <p>Loading Your Transaction History</p>
                     ) : (
-                            Object.keys(transactionCategories[0]).forEach(key => {
-                                console.log(key, transactionCategories[0][key])
+                            transactionCategories.map((transactionCategory, j) => {
+                                console.log(transactionCategory)
                                 return (
                                     <ListItem
-                                        list="category"
-                                        transactionCategory={key}
-                                        categoryAmount={transactionCategories[0][key]}
-                                        key={key}
+                                        list={section}
+                                        transactionCategory={transactionCategory[0]}
+                                        categoryAmount={transactionCategory[1]}
+                                        key={j}
                                     />
                                 )
                             })
