@@ -2,10 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { SpendingDataContext } from "../useContext/SpendingDataContext";
 import ListItem from "./ListItem";
 
-const List = () => {
+const List = ({ section }) => {
 
     const [rawSpending, setRawSpending] = useContext(SpendingDataContext);
-    const [recentTransactions, setRecentTransactions] = useState(null)
+    const [recentTransactions, setRecentTransactions] = useState(null);
+    const [transactionCategories, setTransactionCategories] = useState(null);
 
     useEffect(() => {
         if (rawSpending === null) {
@@ -14,23 +15,59 @@ const List = () => {
 
         let recent = rawSpending.reverse().slice(0, 10);
         setRecentTransactions(recent);
-    }, [rawSpending])
+
+        let categories = [];
+        function categoryFrequency(arr) {
+            let categoryArr = [];
+            arr.forEach(transaction => {
+                if (transaction.Category === "") {
+                    return
+                }
+                categoryArr.push({
+                    category: transaction.Category,
+                    amount: transaction.Amount
+                });
+            });
+            let result = categoryArr.reduce((acc, o) => (acc[o.category] = (acc[o.category] || 0) + 1, acc), {});
+            categories.push(result);
+        };
+        categoryFrequency(rawSpending);
+        setTransactionCategories(categories);
+
+    }, [rawSpending]);
 
     return (
         <div className="list">
-            {!recentTransactions ? (
-                <p>Loading Your Transaction History</p>
-            ) : (
-                    recentTransactions.map((recentTransaction, i) => {
-                        return (
-                            <ListItem
-                                transactionName={recentTransaction.Description}
-                                transactionAmount={recentTransaction.Amount}
-                                key={i}
-                            />
+            {section === "recent" ? [
+                !recentTransactions ? (
+                    <p>Loading Your Transaction History</p>
+                ) : (
+                        recentTransactions.map((recentTransaction, i) => {
+                            return (
+                                <ListItem
+                                    transactionName={recentTransaction.Description}
+                                    transactionAmount={recentTransaction.Amount}
+                                    key={i}
+                                />
+                            )
+                        })
+                    )] : [
+                    !transactionCategories ? (
+                        <p>Loading Your Transaction History</p>
+                    ) : (
+                            transactionCategories.map((transactionCategory, i) => {
+                                return (
+                                    <ListItem
+                                        transactionName={transactionCategory.Category}
+                                        transactionAmount={transactionCategory.Amount}
+                                        key={i}
+                                    />
+                                )
+                            })
                         )
-                    })
-                )}
+                ]
+            }
+
         </div>
     );
 }
