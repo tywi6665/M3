@@ -45,6 +45,7 @@ const List = ({ section }) => {
                         recentTransactions.map((recentTransaction, i) => {
                             return (
                                 <ListItem
+                                    list="recent"
                                     transactionName={recentTransaction.Description}
                                     transactionAmount={recentTransaction.Amount}
                                     key={i}
@@ -55,17 +56,17 @@ const List = ({ section }) => {
                     !transactionCategories ? (
                         <p>Loading Your Transaction History</p>
                     ) : (
-                            transactionCategories.map((transactionCategory, i) => {
+                            transactionCategories.map((transactionCategory, j) => {
                                 return (
                                     <ListItem
-                                        transactionName={transactionCategory.Category}
-                                        transactionAmount={transactionCategory.Amount}
-                                        key={i}
+                                        list="category"
+                                        transactionCategory={transactionCategory.Category}
+                                        categoryAmount={transactionCategory.Amount}
+                                        key={j}
                                     />
                                 )
                             })
-                        )
-                ]
+                        )]
             }
 
         </div>
