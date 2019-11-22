@@ -9,6 +9,7 @@ import * as d3 from "d3";
 import AccountContainer from './Components/AccountContainer';
 import List from "./Components/List";
 
+
 function App() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -23,7 +24,7 @@ function App() {
 
   useEffect(() => {
     let formatTime = d3.timeFormat("%A %B %d, %Y");
-    setCurrentDate(formatTime(new Date));
+    setCurrentDate(formatTime(new Date()));
   }, [])
 
 

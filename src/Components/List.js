@@ -42,13 +42,13 @@ const List = ({ section }) => {
                 (!recentTransactions ? (
                     <p>Loading Your Transaction History</p>
                 ) : (
-                        recentTransactions.map((recentTransaction, i) => {
+                        recentTransactions.map((recentTransaction) => {
                             return (
                                 <ListItem
                                     list={section}
                                     transactionName={recentTransaction.Description}
                                     transactionAmount={recentTransaction.Amount}
-                                    key={i}
+                                    key={recentTransaction.Amount}
                                 />
                             )
                         })
@@ -56,15 +56,18 @@ const List = ({ section }) => {
                     (!transactionCategories ? (
                         <p>Loading Your Transaction History</p>
                     ) : (
-                            transactionCategories.map((transactionCategory, j) => {
-                                console.log(transactionCategory)
+                            transactionCategories.map((transactionCategoriesArr) => {
                                 return (
-                                    <ListItem
-                                        list={section}
-                                        transactionCategory={transactionCategory[0]}
-                                        categoryAmount={transactionCategory[1]}
-                                        key={j}
-                                    />
+                                    transactionCategoriesArr.map(transactionCategory => {
+                                        return (
+                                            <ListItem
+                                                list={section}
+                                                transactionCategory={transactionCategory[0]}
+                                                categoryAmount={transactionCategory[1]}
+                                                key={transactionCategory[0]}
+                                            />
+                                        )
+                                    })
                                 )
                             })
                         ))]
