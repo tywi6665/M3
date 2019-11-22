@@ -28,7 +28,7 @@ const List = ({ section }) => {
                     amount: transaction.Amount
                 });
             });
-            let result = categoryArr.reduce((acc, o) => (acc[o.category] = (acc[o.category] || 0) + 1, acc), {});
+            let result = categoryArr.reduce((acc, o) => (acc[o.category] = (acc[o.category] || 0) + parseInt(o.amount), acc), {});
             categories.push(Object.entries(result));
         };
         categoryFrequency(rawSpending);

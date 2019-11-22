@@ -16,8 +16,8 @@ const ListItem = ({ transactionName, transactionAmount, transactionCategory, cat
                 </>)
             ] : [
                     (<>
-                        <div className="item-name">{transactionCategory}</div>
-                        <div className="item-amount">{categoryAmount}</div>
+                        <div className="item-name">{transactionCategory.toUpperCase()}</div>
+                        <div className="item-amount">{`$${Math.abs(categoryAmount)}`}</div>
                     </>)
                 ]}
 
