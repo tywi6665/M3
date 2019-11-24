@@ -29,7 +29,7 @@ const List = ({ section }) => {
                 });
             });
             let result = categoryArr.reduce((acc, o) => (acc[o.category] = (acc[o.category] || 0) + parseInt(o.amount), acc), {});
-            categories.push(Object.entries(result));
+            categories.push(Object.entries(result).sort((a, b) => a[1] - b[1]));
         };
         categoryFrequency(rawSpending);
         setTransactionCategories(categories);
