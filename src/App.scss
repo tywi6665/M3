@@ -341,14 +341,19 @@ $font-size: 0.9em;
             .list {
                 
                 .list-item {
+                    list-style-type: none;
+                    padding: 0; 
                     margin: 5px 0 15px 0;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
 
-                    .item-name {
+                    li {
                         display: flex;
+                        justify-content: space-between;
                         align-items: center;
+                           
+                        .item-name {
+                            display: flex;
+                            align-items: center;
+                        }
                     }
                 }
             }
