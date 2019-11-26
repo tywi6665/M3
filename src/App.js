@@ -5,6 +5,7 @@ import Container from "./Components/Container";
 import './App.scss';
 import Navbar from './Components/Navbar';
 import SpendingChart from './Visualizations/SpendingChart';
+import CategoryChart from "./Visualizations/CategoryChart";
 import * as d3 from "d3";
 import AccountContainer from './Components/AccountContainer';
 import List from "./Components/List";
@@ -66,7 +67,7 @@ function App() {
             header={["Category", "Split"]}
             subHeader="Your Spending Split by Category"
           >
-            <p>Bubble Chart</p>
+            <CategoryChart />
           </Container>
           <Container
             number="4"
