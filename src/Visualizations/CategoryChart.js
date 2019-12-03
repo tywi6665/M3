@@ -12,8 +12,6 @@ const CategoryChart = ({ width }) => {
             return;
         }
 
-        console.log(width);
-
     }, [width])
 
     const svgHeight = 300,
@@ -21,7 +19,7 @@ const CategoryChart = ({ width }) => {
         margin = { top: 20, right: 15, bottom: 20, left: 15 };
 
     return (
-        <svg height={svgHeight} width={svgWidth}></svg>
+        <svg height={svgHeight} width={window.innerWidth > 1000 ? 422 : svgWidth}></svg>
     );
 }
 
